@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Watchlist | ReadTrade</title>
+  <link rel="stylesheet" href="assets/css/vendor/watchlist.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-content">
+      <div class="logo">
+        <a href="#">Read<span>Trade</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="#"><i class="fas fa-search"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="#">Home</a> <i class="fas fa-chevron-right"></i>
+    <a href="#">My Account</a> <i class="fas fa-chevron-right"></i>
+    <span>My Watchlist</span>
+  </div>
+</div>
+
+<!-- Main Content -->
+<section class="watchlist-section">
+  <div class="container">
+    <div class="page-header">
+      <h1>My Watchlist</h1>
+      <p>You have <span class="item-count">5</span> books saved for later</p>
+    </div>
+
+    <!-- Watchlist Items -->
+    <div class="watchlist-grid">
+      <!-- Item 1 -->
+      <div class="watchlist-item">
+        <div class="item-image">
+          <img src="https://via.placeholder.com/120x160/2c3e50/ffffff?text=Book+1" alt="The Great Adventure">
+        </div>
+        <div class="item-details">
+          <h3><a href="#">The Great Adventure</a></h3>
+          <p class="author">By J.K. Rowling</p>
+          <p class="category">Fiction</p>
+          <div class="item-price">
+            <span class="current">Rs. 2500</span>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+          <button class="btn btn-icon remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="watchlist-item">
+        <div class="item-image">
+          <img src="https://via.placeholder.com/120x160/3498db/ffffff?text=Book+2" alt="Atomic Habits">
+        </div>
+        <div class="item-details">
+          <h3><a href="#">Atomic Habits</a></h3>
+          <p class="author">By James Clear</p>
+          <p class="category">Self-Help</p>
+          <div class="item-price">
+            <span class="current">Rs. 1800</span>
+            <span class="original">Rs. 2200</span>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+          <button class="btn btn-icon remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="watchlist-item">
+        <div class="item-image">
+          <img src="https://via.placeholder.com/120x160/e74c3c/ffffff?text=Book+3" alt="The Silent Patient">
+        </div>
+        <div class="item-details">
+          <h3><a href="#">The Silent Patient</a></h3>
+          <p class="author">By Alex Michaelides</p>
+          <p class="category">Thriller</p>
+          <div class="item-price">
+            <span class="current">Rs. 1500</span>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+          <button class="btn btn-icon remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="watchlist-item">
+        <div class="item-image">
+          <img src="https://via.placeholder.com/120x160/f39c12/ffffff?text=Book+4" alt="Becoming">
+        </div>
+        <div class="item-details">
+          <h3><a href="#">Becoming</a></h3>
+          <p class="author">By Michelle Obama</p>
+          <p class="category">Biography</p>
+          <div class="item-price">
+            <span class="current">Rs. 2400</span>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+          <button class="btn btn-icon remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="watchlist-item">
+        <div class="item-image">
+          <img src="https://via.placeholder.com/120x160/27ae60/ffffff?text=Book+5" alt="Educated">
+        </div>
+        <div class="item-details">
+          <h3><a href="#">Educated</a></h3>
+          <p class="author">By Tara Westover</p>
+          <p class="category">Memoir</p>
+          <div class="item-price">
+            <span class="current">Rs. 2000</span>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+          <button class="btn btn-icon remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State (hidden by default) -->
+    <div class="empty-state" style="display: none;">
+      <i class="fas fa-heart-broken"></i>
+      <h2>Your watchlist is empty</h2>
+      <p>Save books you're interested in and they'll appear here.</p>
+      <a href="#" class="btn btn-primary">Browse Books</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2023 ReadTrade. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Demo: remove items when clicking remove button
+  document.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const item = this.closest('.watchlist-item');
+      item.style.opacity = '0';
+      setTimeout(() => {
+        item.remove();
+        // Check if no items left
+        if (document.querySelectorAll('.watchlist-item').length === 0) {
+          document.querySelector('.watchlist-grid').style.display = 'none';
+          document.querySelector('.empty-state').style.display = 'block';
+        }
+      }, 300);
+    });
+  });
+
+  // Demo: add to cart
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', function() {
+      alert('Item added to cart!');
+    });
+  });
+</script>
+</body>
+</html>

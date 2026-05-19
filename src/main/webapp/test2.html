@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadTrade | Email Verification Preview</title>
+  <link rel="stylesheet" href="assets/css/vendor/email-preview.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="email-preview-wrapper">
+  <!-- Header -->
+
+
+  <!-- Email Preview Container -->
+  <div class="preview-container">
+    <div>
+      <div class="email-container">
+        <div class="email-header">
+          <div class="email-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/SmartTradePI.png" alt="ReadTrade Logo">
+            <span>ReadTrade</span>
+          </div>
+          <div class="email-subject">
+            <i class="fas fa-envelope"></i>
+            <span>Email Verification Code - ReadTrade</span>
+          </div>
+        </div>
+
+        <div class="email-content">
+          <div class="email-welcome">
+            <h2>WELCOME <span id="previewEmail">user@example.com</span></h2>
+          </div>
+
+          <div class="email-message">
+            <p>Thanks for registering on our website</p>
+            <p>To verify your email please click on the button below.</p>
+          </div>
+
+          <div class="verification-code-display">
+            <div class="code-label">Your Verification Code:</div>
+            <div class="code-value" id="previewCode">ABCD123</div>
+          </div>
+
+          <div class="email-action">
+            <a href="#" class="verify-button">
+              <i class="fas fa-check-circle"></i>
+              Verify Your Email
+            </a>
+          </div>
+
+          <div class="email-link">
+            <p>If you have any trouble please paste this link in your browser:</p>
+            <div class="link-box">
+              <i class="fas fa-link"></i>
+              <span id="previewLink">https://readtrade.com/verify-account?email=user@example.com&code=ABCD123</span>
+            </div>
+          </div>
+
+          <div class="email-footer">
+            <hr>
+            <p class="copyright">© ReadTrade. All Rights Reserved</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/email-preview.js"></script>
+</body>
+</html>

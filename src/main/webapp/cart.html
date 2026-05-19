@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ReadTrade - Shopping Cart with Quantity Controls</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix@3.2.6/dist/notiflix-3.2.6.min.css">
+    <style>
+        /* CSS Variables - Modern Design System */
+        :root {
+            --primary: #5d4fff;
+            --primary-light: #7b6eff;
+            --secondary: #ff9a3d;
+            --accent: #3dd2ff;
+            --dark: #2d2b55;
+            --light: #f8f9ff;
+            --success: #00c9a7;
+            --warning: #ffc107;
+            --danger: #ff4757;
+            --text: #333344;
+            --text-light: #6c757d;
+            --border: #e6e9ff;
+            --shadow: 0 10px 30px rgba(93, 79, 255, 0.08);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Container System */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== HEADER STYLES ========== */
+        .axil-header-top {
+            background-color: var(--dark);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .dropdown-toggle {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+        }
+
+        .quick-link {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quick-link li a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .quick-link li a:hover {
+            color: var(--secondary);
+        }
+
+        /* Main Navigation */
+        .axil-mainmenu {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        .mainmenu {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mainmenu li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .mainmenu li a:hover {
+            color: var(--primary);
+        }
+
+        .mainmenu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .mainmenu li a:hover::after {
+            width: 100%;
+        }
+
+        .action-list {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .action-list li a {
+            color: var(--dark);
+            font-size: 1.2rem;
+            position: relative;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .action-list li a:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* ========== CART SECTION ========== */
+        .cart-section {
+            padding: 60px 0;
+        }
+
+        .cart-header {
+            margin-bottom: 40px;
+        }
+
+        .cart-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .cart-subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Cart Grid Layout */
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 32px;
+        }
+
+        /* Cart Table */
+        .cart-table-wrapper {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+        }
+
+        .cart-table th {
+            padding: 20px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+            background: #fafbff;
+        }
+
+        .cart-table td {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        /* Product Info */
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(145deg, #f0f2ff, #e6e9ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .product-image i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .product-details h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .product-details .author {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .product-details .condition {
+            font-size: 0.7rem;
+            color: var(--success);
+            background: rgba(0, 201, 167, 0.1);
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* Quantity Control - Interactive */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--light);
+            border: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .quantity-value {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .item-total {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .remove-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            color: #ff1a1a;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .summary-row.total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            border-top: 2px solid var(--border);
+            padding-top: 18px;
+            margin-top: 12px;
+        }
+
+        .summary-row.total span:last-child {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(93, 79, 255, 0.25);
+        }
+
+        .continue-shopping {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .continue-shopping:hover {
+            color: var(--secondary);
+            transform: translateX(-4px);
+        }
+
+        /* Empty Cart State */
+        .empty-cart-state {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .empty-cart-state i {
+            font-size: 4.5rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-cart-state h3 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .empty-cart-state p {
+            color: var(--text-light);
+            margin-bottom: 28px;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer-top {
+            background: #1a1832;
+            color: white;
+            padding: 60px 0 40px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-widget h5 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-widget p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .footer-widget ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-widget ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-widget ul li a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-widget ul li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .copyright-area {
+            background: #131129;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 24px 0;
+        }
+
+        .copyright-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .social-share {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-share a {
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-share a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .cart-grid {
+                grid-template-columns: 1fr;
+            }
+            .cart-summary {
+                position: static;
+            }
+            .cart-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .mainmenu {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .action-list {
+                justify-content: center;
+            }
+            .product-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cart-table th, .cart-table td {
+                padding: 15px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Top Bar -->
+<div class="axil-header-top">
+    <div class="container">
+        <div class="header-top-inner">
+            <div class="dropdown-toggle">
+                <i class="fas fa-globe"></i> English / USD
+            </div>
+            <ul class="quick-link">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Main Navigation -->
+<div class="axil-mainmenu">
+    <div class="container">
+        <div class="header-navbar">
+            <div class="logo">
+                <h1>ReadTrade</h1>
+            </div>
+            <ul class="mainmenu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Genres</a></li>
+                <li><a href="#">Deals</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
+            <ul class="action-list">
+                <li><a><i class="fas fa-search"></i></a></li>
+                <li><a class="shopping-cart"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCountHeader">3</span></a></li>
+                <li><a><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Section -->
+<section class="cart-section">
+    <div class="container">
+        <div class="cart-header">
+            <h1 class="cart-title">Your Cart</h1>
+            <p class="cart-subtitle">Review your selected books before checkout</p>
+        </div>
+
+        <!-- Active Cart Grid -->
+        <div id="activeCartGrid" class="cart-grid">
+            <!-- Cart content will be dynamically rendered here -->
+        </div>
+
+        <!-- Empty Cart State -->
+        <div id="emptyCartState" class="empty-cart-state" style="display: none;">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Your cart is empty</h3>
+            <p>Looks like you haven't added any books to your cart yet.</p>
+            <a href="#" class="btn-primary-custom">Continue Shopping</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-widget">
+                    <h5>ReadTrade</h5>
+                    <p>The world's most immersive book trading platform. Where stories find new homes.</p>
+                </div>
+                <div class="footer-widget">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Trade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h5>Discover</h5>
+                    <ul>
+                        <li><a href="#">Rare Books</a></li>
+                        <li><a href="#">Bestsellers</a></li>
+                        <li><a href="#">Author Signings</a></li>
+                        <li><a href="#">Book Clubs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h5>Get the App</h5>
+                    <div class="app-link">
+                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" style="height: 42px;" alt="Google Play"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="copyright-inner">
+                <p style="margin: 0;">© 2025 ReadTrade. All rights reserved.</p>
+                <div class="social-share">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--<script>-->
+<!--    // Cart Data-->
+<!--    let cartItems = [-->
+<!--        {-->
+<!--            id: 1,-->
+<!--            title: "Echoes of Eternity",-->
+<!--            author: "A. Sterling",-->
+<!--            price: 18.99,-->
+<!--            quantity: 1,-->
+<!--            icon: "fa-book-open",-->
+<!--            condition: "Like New"-->
+<!--        },-->
+<!--        {-->
+<!--            id: 2,-->
+<!--            title: "The Alchemist's Code",-->
+<!--            author: "Paulo H.",-->
+<!--            price: 24.50,-->
+<!--            quantity: 2,-->
+<!--            icon: "fa-feather-alt",-->
+<!--            condition: "Very Good"-->
+<!--        },-->
+<!--        {-->
+<!--            id: 3,-->
+<!--            title: "Neon Dreams",-->
+<!--            author: "K. Mori",-->
+<!--            price: 15.75,-->
+<!--            quantity: 1,-->
+<!--            icon: "fa-meteor",-->
+<!--            condition: "New"-->
+<!--        }-->
+<!--    ];-->
+
+<!--    // DOM Elements-->
+<!--    const activeCartGrid = document.getElementById('activeCartGrid');-->
+<!--    const emptyCartState = document.getElementById('emptyCartState');-->
+<!--    const cartCountHeader = document.getElementById('cartCountHeader');-->
+
+<!--    // Helper: Update total items in header-->
+<!--    function updateHeaderCartCount() {-->
+<!--        const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);-->
+<!--        if (cartCountHeader) cartCountHeader.innerText = totalItems;-->
+<!--    }-->
+
+<!--    // Helper: Calculate and update summary-->
+<!--    function updateSummary() {-->
+<!--        const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);-->
+<!--        const subtotalEl = document.getElementById('summarySubtotal');-->
+<!--        const totalEl = document.getElementById('summaryTotal');-->
+<!--        if (subtotalEl) subtotalEl.innerText = `$${subtotal.toFixed(2)}`;-->
+<!--        if (totalEl) totalEl.innerText = `$${subtotal.toFixed(2)}`;-->
+<!--    }-->
+
+<!--    // Increment quantity-->
+<!--    function incrementQuantity(id) {-->
+<!--        const item = cartItems.find(i => i.id === id);-->
+<!--        if (item) {-->
+<!--            item.quantity++;-->
+<!--            renderCart();-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Decrement quantity-->
+<!--    function decrementQuantity(id) {-->
+<!--        const item = cartItems.find(i => i.id === id);-->
+<!--        if (item && item.quantity > 1) {-->
+<!--            item.quantity&#45;&#45;;-->
+<!--            renderCart();-->
+<!--        } else if (item && item.quantity === 1) {-->
+<!--            // Remove item if quantity becomes 0-->
+<!--            cartItems = cartItems.filter(i => i.id !== id);-->
+<!--            renderCart();-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Remove item completely-->
+<!--    function removeItem(id) {-->
+<!--        cartItems = cartItems.filter(i => i.id !== id);-->
+<!--        renderCart();-->
+<!--    }-->
+
+<!--    // Render the entire cart UI-->
+<!--    function renderCart() {-->
+<!--        // Update header cart count-->
+<!--        updateHeaderCartCount();-->
+
+<!--        // Check if cart is empty-->
+<!--        if (cartItems.length === 0) {-->
+<!--            activeCartGrid.style.display = 'none';-->
+<!--            emptyCartState.style.display = 'block';-->
+<!--            return;-->
+<!--        }-->
+
+<!--        activeCartGrid.style.display = 'grid';-->
+<!--        emptyCartState.style.display = 'none';-->
+
+<!--        // Build the cart table HTML-->
+<!--        let tableHTML = `-->
+<!--                <div class="cart-table-wrapper">-->
+<!--                    <table class="cart-table">-->
+<!--                        <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Product</th>-->
+<!--                                <th>Price</th>-->
+<!--                                <th>Quantity</th>-->
+<!--                                <th>Total</th>-->
+<!--                                <th></th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--            `;-->
+
+<!--        cartItems.forEach(item => {-->
+<!--            const itemTotal = (item.price * item.quantity).toFixed(2);-->
+<!--            tableHTML += `-->
+<!--                    <tr data-id="${item.id}">-->
+<!--                        <td>-->
+<!--                            <div class="product-info">-->
+<!--                                <div class="product-image">-->
+<!--                                    <i class="fas ${item.icon}"></i>-->
+<!--                                </div>-->
+<!--                                <div class="product-details">-->
+<!--                                    <h5>${item.title}</h5>-->
+<!--                                    <div class="author">by ${item.author}</div>-->
+<!--                                    <span class="condition">${item.condition}</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="item-price">$${item.price.toFixed(2)}</td>-->
+<!--                        <td>-->
+<!--                            <div class="quantity-control">-->
+<!--                                <button class="quantity-btn decrement" data-id="${item.id}">-</button>-->
+<!--                                <span class="quantity-value">${item.quantity}</span>-->
+<!--                                <button class="quantity-btn increment" data-id="${item.id}">+</button>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="item-total">$${itemTotal}</td>-->
+<!--                        <td>-->
+<!--                            <button class="remove-btn" data-id="${item.id}">-->
+<!--                                <i class="fas fa-trash-alt"></i>-->
+<!--                            </button>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                `;-->
+<!--        });-->
+
+<!--        tableHTML += `-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                    <div style="padding: 0 20px 20px 20px;">-->
+<!--                        <a href="#" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="cart-summary">-->
+<!--                    <h3 class="summary-title">Order Summary</h3>-->
+<!--                    <div class="summary-row">-->
+<!--                        <span>Subtotal</span>-->
+<!--                        <span id="summarySubtotal">$0.00</span>-->
+<!--                    </div>-->
+<!--                    <div class="summary-row">-->
+<!--                        <span>Shipping</span>-->
+<!--                        <span>Calculated at checkout</span>-->
+<!--                    </div>-->
+<!--                    <div class="summary-row">-->
+<!--                        <span>Tax</span>-->
+<!--                        <span>Estimated $0.00</span>-->
+<!--                    </div>-->
+<!--                    <div class="summary-row total">-->
+<!--                        <span>Total</span>-->
+<!--                        <span id="summaryTotal">$0.00</span>-->
+<!--                    </div>-->
+<!--                    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>-->
+<!--                    <p class="text-muted text-center mt-3" style="font-size: 0.75rem;">-->
+<!--                        <i class="fas fa-lock"></i> Secure payment • Free returns-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            `;-->
+
+<!--        activeCartGrid.innerHTML = tableHTML;-->
+
+<!--        // Update summary numbers-->
+<!--        updateSummary();-->
+
+<!--        // Attach event listeners to the newly created buttons-->
+<!--        document.querySelectorAll('.increment').forEach(btn => {-->
+<!--            btn.addEventListener('click', (e) => {-->
+<!--                e.stopPropagation();-->
+<!--                const id = parseInt(btn.getAttribute('data-id'));-->
+<!--                incrementQuantity(id);-->
+<!--            });-->
+<!--        });-->
+
+<!--        document.querySelectorAll('.decrement').forEach(btn => {-->
+<!--            btn.addEventListener('click', (e) => {-->
+<!--                e.stopPropagation();-->
+<!--                const id = parseInt(btn.getAttribute('data-id'));-->
+<!--                decrementQuantity(id);-->
+<!--            });-->
+<!--        });-->
+
+<!--        document.querySelectorAll('.remove-btn').forEach(btn => {-->
+<!--            btn.addEventListener('click', (e) => {-->
+<!--                e.stopPropagation();-->
+<!--                const id = parseInt(btn.getAttribute('data-id'));-->
+<!--                removeItem(id);-->
+<!--            });-->
+<!--        });-->
+
+<!--        const checkoutBtn = document.getElementById('checkoutBtn');-->
+<!--        if (checkoutBtn) {-->
+<!--            checkoutBtn.addEventListener('click', () => {-->
+<!--                const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);-->
+<!--                alert(`Thank you for your purchase! Total: $${total}\nThis is a demo checkout.`);-->
+<!--            });-->
+<!--        }-->
+
+<!--        // Continue shopping link-->
+<!--        const continueLink = activeCartGrid.querySelector('.continue-shopping');-->
+<!--        if (continueLink) {-->
+<!--            continueLink.addEventListener('click', (e) => {-->
+<!--                e.preventDefault();-->
+<!--                alert('Continue shopping - browse our collection!');-->
+<!--            });-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Initial render-->
+<!--    renderCart();-->
+<!--</script>-->
+<!-- Notiflix CSS -->
+
+
+<!-- Notiflix JS -->
+
+
+<script src="assets/js/vendor/bootstrap.min.js"></script>
+<script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>

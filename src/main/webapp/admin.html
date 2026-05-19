@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ReadTrade</title>
+    <link rel="stylesheet" href="assets/css/vendor/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="#">Read<span>Trade</span></a>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Books</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                <li><a href="#"><i class="fas fa-tags"></i> Categories</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Dashboard</h2>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40x40/3498db/ffffff?text=Admin" alt="Admin">
+                    <span>Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-cards">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Total Books</h3>
+                    <p>1,245</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Total Users</h3>
+                    <p>3,578</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Total Orders</h3>
+                    <p>892</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Revenue</h3>
+                    <p>$24,560</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Orders Table -->
+        <section class="recent-orders">
+            <h3>Recent Orders</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>#OR1001</td>
+                    <td>John Doe</td>
+                    <td>2023-06-15</td>
+                    <td>$45.99</td>
+                    <td><span class="status completed">Completed</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+                <tr>
+                    <td>#OR1002</td>
+                    <td>Jane Smith</td>
+                    <td>2023-06-14</td>
+                    <td>$32.50</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+                <tr>
+                    <td>#OR1003</td>
+                    <td>Robert Brown</td>
+                    <td>2023-06-14</td>
+                    <td>$78.20</td>
+                    <td><span class="status processing">Processing</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+                <tr>
+                    <td>#OR1004</td>
+                    <td>Emily Davis</td>
+                    <td>2023-06-13</td>
+                    <td>$23.99</td>
+                    <td><span class="status completed">Completed</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+                <tr>
+                    <td>#OR1005</td>
+                    <td>Michael Wilson</td>
+                    <td>2023-06-13</td>
+                    <td>$56.30</td>
+                    <td><span class="status cancelled">Cancelled</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Recent Books & Users -->
+        <div class="two-column">
+            <section class="recent-books">
+                <h3>Recently Added Books</h3>
+                <ul>
+                    <li>
+                        <img src="https://via.placeholder.com/50x70/2c3e50/ffffff?text=Book" alt="Book">
+                        <div>
+                            <h4>The Great Gatsby</h4>
+                            <p>F. Scott Fitzgerald | $12.99</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/50x70/3498db/ffffff?text=Book" alt="Book">
+                        <div>
+                            <h4>Atomic Habits</h4>
+                            <p>James Clear | $16.99</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/50x70/e74c3c/ffffff?text=Book" alt="Book">
+                        <div>
+                            <h4>Becoming</h4>
+                            <p>Michelle Obama | $18.99</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/50x70/f39c12/ffffff?text=Book" alt="Book">
+                        <div>
+                            <h4>Educated</h4>
+                            <p>Tara Westover | $14.99</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-all">View All Books</a>
+            </section>
+
+            <section class="recent-users">
+                <h3>Recent Users</h3>
+                <ul>
+                    <li>
+                        <img src="https://via.placeholder.com/40x40/3498db/ffffff?text=JD" alt="User">
+                        <div>
+                            <h4>John Doe</h4>
+                            <p>john@example.com</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/40x40/e74c3c/ffffff?text=JS" alt="User">
+                        <div>
+                            <h4>Jane Smith</h4>
+                            <p>jane@example.com</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/40x40/f39c12/ffffff?text=RB" alt="User">
+                        <div>
+                            <h4>Robert Brown</h4>
+                            <p>robert@example.com</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://via.placeholder.com/40x40/27ae60/ffffff?text=ED" alt="User">
+                        <div>
+                            <h4>Emily Davis</h4>
+                            <p>emily@example.com</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-all">View All Users</a>
+            </section>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Simple mobile menu toggle
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    });
+</script>
+</body>
+</html>

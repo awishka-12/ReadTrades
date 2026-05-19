@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - ReadTrade</title>
+    <link rel="stylesheet" href="assets/css/vendor/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-content">
+            <div class="account-header">
+                <div class="account-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="account-info">
+                    <h1>My Account</h1>
+                    <p class="account-subtitle">Manage your ReadTrade account information and settings</p>
+                    <div class="account-status">
+                            <span class="status-badge verified">
+                                <i class="fas fa-check-circle"></i>
+                                Account Verified
+                            </span>
+                        <span class="member-since" id="memberSince">
+                                <i class="far fa-calendar-alt"></i>
+                                member-since March 15, 2022
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Left Column -->
+        <div class="left-column">
+            <!-- Personal Information Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user"></i>
+                    <h2>Personal Information</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="input-field" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="input-field" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-with-note">
+                            <input type="email" id="email" class="input-field"  disabled>
+                            <div class="input-note">
+                                <i class="fas fa-info-circle"></i>
+                                Email cannot be changed
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary btn-icon" id="updateProfileBtn" onclick="updateProfile()">
+                            <i class="fas fa-save"></i>
+                            <span>Update Profile</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Information Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-home"></i>
+                    <h2>Address Information</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="addressLineOne">Address Line 1</label>
+                        <input type="text" id="addressLineOne" class="input-field" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressLineTwo">Address Line 2 <span class="optional-label">(Optional)</span></label>
+                        <input type="text" id="addressLineTwo" class="input-field" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" class="input-field" >
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="city">City</label>
+                            <div class="select-wrapper">
+                                <select id="city" class="input-field" onclick="loadCity()" >
+                                    <option value="0">Select</option>
+
+                                </select>
+                                <i class="fas fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-col">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" class="input-field" >
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary btn-icon" id="updateAddressBtn" onclick="updateAddress()">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Update Address</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+            <!-- Account Security Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Account Security</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Password Change -->
+                    <div class="security-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-key"></i> Change Password</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <div class="password-input">
+                                <input type="password" id="currentPassword" class="input-field" placeholder="Enter your current password">
+                                <button class="password-toggle" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <div class="password-input">
+                                <input type="password" id="newPassword" class="input-field" placeholder="Enter new password">
+                                <button class="password-toggle" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <div class="password-input">
+                                <input type="password" id="confirmPassword" class="input-field" placeholder="Re-enter new password">
+                                <button class="password-toggle" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Password must be at least 8 characters with uppercase, lowercase, and a number
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary btn-icon" id="changePasswordBtn" onclick="changePassword()">
+                                <i class="fas fa-lock"></i>
+                                <span>Change Password</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Session Information -->
+                    <div class="security-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-laptop"></i> Session Information</h3>
+                        </div>
+                        <div class="session-info">
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="far fa-clock"></i>
+                                    Last Login
+                                </div>
+                                <div class="info-value">Today, 10:30 AM</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Location
+                                </div>
+                                <div class="info-value">Los Angeles, CA, USA</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Account Actions -->
+                    <div class="security-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-cog"></i> Account Actions</h3>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-action btn-outline" id="privacySettingsBtn">
+                                <i class="fas fa-user-shield"></i>
+                                <span>Privacy Settings</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone Section -->
+            <div class="card danger-card">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Danger Zone</h2>
+                </div>
+                <div class="card-body">
+                    <div class="danger-warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="warning-content">
+                            <h3>Warning: Irreversible Actions</h3>
+                            <p>These actions cannot be undone. Please proceed with caution.</p>
+                        </div>
+                    </div>
+
+                    <div class="danger-actions">
+                        <button class="btn btn-warning btn-icon" id="deactivateAccountBtn">
+                            <i class="fas fa-user-slash"></i>
+                            <span>Deactivate Account</span>
+                        </button>
+
+                        <button class="btn btn-danger btn-icon" id="deleteAccountBtn">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Delete Account Permanently</span>
+                        </button>
+                    </div>
+
+                    <div class="danger-note">
+                        <i class="fas fa-info-circle"></i>
+                        Once you delete your account, there is no going back. All your data will be permanently removed from ReadTrade.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logout Section -->
+            <div class="logout-section">
+                <button class="btn btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout from ReadTrade</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <p>ReadTrade Account Management • Last updated: July 2023</p>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-question-circle"></i> Help Center</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="#"><i class="fas fa-file-alt"></i> Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min"></script>
+<script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
+<script src="assets/js/Update-Profile.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/readtrade?useSSL=false&amp;serverTimezone=UTC
+        </property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">hgYiM7KeG6T*6UE</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+
+        <mapping class="readtrade.entity.Status"/>
+        <mapping class="readtrade.entity.Address"/>
+        <mapping class="readtrade.entity.City"/>
+        <mapping class="readtrade.entity.Stock"/>
+        <mapping class="readtrade.entity.Cart"/>
+        <mapping class="readtrade.entity.Role"/>
+        <mapping class="readtrade.entity.Catagory"/>
+        <mapping class="readtrade.entity.Delivery_Type"/>
+        <mapping class="readtrade.entity.User"/>
+        <mapping class="readtrade.entity.Orders"/>
+        <mapping class="readtrade.entity.Order_Item"/>
+        <mapping class="readtrade.entity.Printyear"/>
+        <mapping class="readtrade.entity.Book"/>
+        <mapping class="readtrade.entity.OrderStatus"/>
+        <mapping class="readtrade.entity.Author"/>
+        <mapping class="readtrade.entity.Language"/>
+        <mapping class="readtrade.entity.Delivery"/>
+
+    </session-factory>
+
+</hibernate-configuration>

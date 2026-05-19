@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadTrade | Verify Your Account</title>
+    <link rel="stylesheet" href="assets/css/vendor/verification-form.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="verification-form-wrapper">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-book-reader"></i>
+            <span>ReadTrade</span>
+        </div>
+        <div class="header-status">
+            <span class="status-badge">Email Verification Required</span>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container-wrapper">
+        <div class="form-container">
+            <div class="verification-status">
+                <div class="status-icon pending">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2>Verify Your Email Address</h2>
+                <p class="status-description">
+                    We've sent a verification code to your email address.
+                    Please enter the code below to complete your registration.
+                </p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="verification-steps">
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <div class="step-title">Account Created</div>
+                        <div class="step-time">Just now</div>
+                    </div>
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <div class="step-title">Email Verification</div>
+                        <div class="step-time">In progress</div>
+                    </div>
+                    <i class="fas fa-circle"></i>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <div class="step-title">Complete Profile</div>
+                        <div class="step-time">Next step</div>
+                    </div>
+                    <i class="fas fa-circle"></i>
+                </div>
+            </div>
+
+            <!-- Email Display -->
+
+            <!-- Verification Form -->
+            <form class="verification-form" id="verificationForm">
+                <div class="form-group">
+                    <label >Verification Code</label>
+                    <div class="code-input-container">
+                        <div class="code-inputs small-inputs">
+                            <input type="text" maxlength="6" class="code-input" id="code"  >
+
+
+                        </div>
+                        <div class="code-hint">Enter the 6-digit code from your email</div>
+                    </div>
+                    <div class="error-message" id="code-error">Invalid verification code</div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="verify-btn" id="verifyBtn" onclick="verifyAccount()">Verify
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verify Account</span>
+                    </button>
+                    <button type="button" class="resend-btn" id="resendBtn">
+                        <i class="fas fa-redo"></i>
+                        <span>Resend Code</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Countdown Timer -->
+
+
+            <!-- Alternative Methods -->
+            <div class="alternative-methods">
+                <h4>Other Verification Methods</h4>
+                <div class="method-options">
+                    <button class="method-btn active" id="emailMethod">
+                        <i class="fas fa-envelope"></i>
+                        <div class="method-info">
+                            <div class="method-title">Email Verification</div>
+                            <div class="method-desc">6-digit code sent to your email</div>
+                        </div>
+                        <i class="fas fa-check active-check"></i>
+                    </button>
+
+
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <div class="help-item">
+                    <i class="fas fa-question-circle"></i>
+                    <div class="help-content">
+                        <h5>Didn't receive the email?</h5>
+                        <p>Check your spam folder or click "Resend Code" above</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="help-content">
+                        <h5>Having trouble?</h5>
+                        <p>Contact our support team at <a href="mailto:support@readtrade.com">support@readtrade.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Email Modal -->
+    <div class="modal-overlay" id="changeEmailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Change Email Address</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Enter a new email address to receive the verification code</p>
+                <div class="form-group">
+                    <label for="newEmail">New Email Address</label>
+                    <input type="email" id="newEmail" placeholder="new@example.com" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" id="cancelChangeEmail">Cancel</button>
+                    <button class="confirm-btn" id="confirmChangeEmail">Update Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay success" id="successModal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Email Verified Successfully!</h3>
+            <p>Your email address has been verified. You can now access all features of ReadTrade.</p>
+            <div class="success-actions">
+                <a href="dashboard.html" class="success-btn">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Go to Dashboard
+                </a>
+                <a href="profile.html" class="success-btn outline">
+                    <i class="fas fa-user"></i>
+                    Complete Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
+<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
+<script src="assets/js/verification-form.js"></script>
+
+</body>
+</html>

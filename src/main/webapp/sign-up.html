@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>ReadTrade | Join Our Book Community</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/vendor/style.css">
+</head>
+
+<body>
+<!-- Brand Header -->
+<div class="brand-header">
+  <a href="../index.html" class="logo">
+    <i class="fas fa-book-reader logo-icon"></i>
+    <span>ReadTrade</span>
+  </a>
+</div>
+
+<!-- Main Layout -->
+<div class="split-layout">
+  <!-- Visual Side -->
+  <div class="visual-side">
+    <div class="book-illustration book-1">
+      <i class="fas fa-book"></i>
+    </div>
+    <div class="book-illustration book-2">
+      <i class="fas fa-book-open"></i>
+    </div>
+
+    <div class="visual-content">
+      <h1 class="visual-title">Discover Your Next Favorite Book</h1>
+      <p class="visual-description">
+        Join thousands of book lovers in a community where stories find new homes,
+        and every page turn is an opportunity to connect.
+      </p>
+
+      <ul class="features-list">
+        <li>
+          <div class="feature-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <span>Trade books with readers worldwide</span>
+        </li>
+        <li>
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <span>Track your reading journey with analytics</span>
+        </li>
+        <li>
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <span>Join book clubs and reading challenges</span>
+        </li>
+        <li>
+          <div class="feature-icon">
+            <i class="fas fa-tag"></i>
+          </div>
+          <span>Get personalized recommendations</span>
+        </li>
+      </ul>
+
+      <div class="stats">
+        <div class="stats-container">
+          <div class="stat-item">
+            <h3>50K+</h3>
+            <p>Active Readers</p>
+          </div>
+          <div class="stat-item">
+            <h3>200K+</h3>
+            <p>Books Traded</p>
+          </div>
+          <div class="stat-item">
+            <h3>4.8★</h3>
+            <p>Community Rating</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Side -->
+  <div class="form-side">
+    <div class="form-container">
+      <!-- Progress Indicator -->
+      <div class="progress-indicator">
+        <div class="progress-step">
+          <div class="step-circle active">1</div>
+          <div class="step-label active">Account</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-circle">2</div>
+          <div class="step-label">Profile</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-circle">3</div>
+          <div class="step-label">Preferences</div>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i> Account created successfully! Redirecting...
+      </div>
+
+      <div class="form-header">
+        <h1 class="form-title">Join ReadTrade</h1>
+        <p class="form-subtitle">Start your literary journey in just a minute</p>
+      </div>
+
+      <!-- Social Login -->
+      <div class="social-login">
+        <button class="social-btn google-btn">
+          <i class="fab fa-google"></i> Google
+        </button>
+        <button class="social-btn facebook-btn">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+      </div>
+
+      <div class="divider">
+        <span>or sign up with email</span>
+      </div>
+
+      <!-- Signup Form -->
+      <form id="signupForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" id="firstName" class="form-control" placeholder="John" required>
+              <div class="error-message" id="firstNameError">Please enter a valid first name</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" id="lastName" class="form-control" placeholder="Doe" required>
+              <div class="error-message" id="lastNameError">Please enter a valid last name</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+          <div class="error-message" id="emailError">Please enter a valid email address</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+          <button type="button" class="password-toggle" id="togglePassword">
+            <i class="far fa-eye"></i>
+          </button>
+          <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+          <div class="password-hint">
+            <i class="fas fa-info-circle"></i> Use at least 8 characters with letters and numbers
+          </div>
+        </div>
+
+
+
+        <button type="button" class="submit-btn" onclick="signup()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+
+        <div class="login-link">
+          Already have an account? <a href="sign-in.html">Sign In</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Vendor JS -->
+<script src="assets/js/vendor/jquery.js"></script>
+<script src="assets/js/vendor/bootstrap.min.js"></script>
+<script src="assets/js/notiflix-aio-3.2.8.min.js"/></script>
+
+<!-- Custom JS -->
+<script src="assets/js/sign-up.js"></script>
+</body>
+</html>
