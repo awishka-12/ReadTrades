@@ -20,6 +20,7 @@ import java.util.List;
 public class CheckoutService {
 
     private final OrdarService ordarService=new OrdarService();
+
     public String processCheckout(CheckoutRequestDTO checkoutRequestDTO, HttpServletRequest request) {
 
         JsonObject jsonObject = new JsonObject();
@@ -27,94 +28,101 @@ public class CheckoutService {
         boolean status = false;
 
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
-      User sessionUser=(User) request.getSession().getAttribute("user");
+        User sessionUser = (User) request.getSession().getAttribute("user");
 
-      if (sessionUser==null) {
-        message ="Session User is null.please login again";
-      }else {
-User dbuser = (User) request.getSession().getAttribute("user");
-          Transaction  transaction = hibernateSession.beginTransaction();
-          try {
+        if (sessionUser == null) {
+            message = "Session User is null. Please login again.";
+        } else {
+            // ✅ FIXED: load managed Hibernate entity instead of raw session object
+            User dbuser = hibernateSession.find(User.class, sessionUser.getId());
+            Transaction transaction = hibernateSession.beginTransaction();
+            try {
 
-       if(checkoutRequestDTO.isCurrentAddress()){
-            Address address=hibernateSession.createQuery("FROM Address a WHERE " +
-            "a.user=:user AND a.isPrimary=:primary",Address.class).
-          setParameter("user",dbuser).setParameter("primary",checkoutRequestDTO.isCurrentAddress())
-            .getSingleResult();
+                if (checkoutRequestDTO.isCurrentAddress()) {
+                    // ✅ FIXED: use true not isCurrentAddress(), use getSingleResultOrNull
+                    Address address = hibernateSession.createQuery(
+                                    "FROM Address a WHERE a.user=:user AND a.isPrimary=:primary", Address.class)
+                            .setParameter("user", dbuser)
+                            .setParameter("primary", true)
+                            .setMaxResults(1)
+                            .getSingleResultOrNull();
 
-            if (address == null) {
-                message ="Address is null.please login again";
-            }else {
-            // Order pending method call here
-                Orders pendingOrder=ordarService.createPendingorder(dbuser,hibernateSession);
+                    if (address == null) {
+                        message = "Primary address not found. Please add an address first.";
+                    } else {
+                        // ✅ FIXED: was missing PayHereDTO creation and transaction.commit()
+                        Orders pendingOrder = ordarService.createPendingorder(dbuser, hibernateSession);
+                        PayHereDTO paymetdeatails = createPayHereDTO(hibernateSession, pendingOrder);
+                        jsonObject.add("paymetDeatils", AppUtil.GSON.toJsonTree(paymetdeatails));
+                        transaction.commit();
+                        status = true;
+                    }
+
+                } else {
+                    // ✅ FIXED: null checks come before .matches() to avoid NullPointerException
+                    if (checkoutRequestDTO.getFirstName().isBlank()) {
+                        message = "First name is empty.";
+                    } else if (checkoutRequestDTO.getLastName().isBlank()) {
+                        message = "Last name is empty.";
+                    } else if (checkoutRequestDTO.getMobile() == null || !checkoutRequestDTO.getMobile().matches(Validator.MOBILE_VALIDATION)) {
+                        message = "Mobile number is invalid.";
+                    } else if (checkoutRequestDTO.getPostalCode() == null || !checkoutRequestDTO.getPostalCode().matches(Validator.POSTAL_CODE_VALIDATION)) {
+                        message = "Postal code is invalid.";
+                    } else if (checkoutRequestDTO.getLineOne().isBlank()) {
+                        message = "Address line one is empty.";
+                    } else if (checkoutRequestDTO.getLineTwo().isBlank()) {
+                        message = "Address line two is empty.";
+                    } else {
+                        City city = hibernateSession.find(City.class, checkoutRequestDTO.getCityId());
+                        if (city == null) {
+                            message = "City not found.";
+                        } else {
+                            // ✅ FIXED: demote existing primary address before creating new one
+                            Address existingAddress = hibernateSession.createQuery(
+                                            "FROM Address a WHERE a.user=:user AND a.isPrimary=:primary", Address.class)
+                                    .setParameter("user", dbuser)
+                                    .setParameter("primary", true)
+                                    .setMaxResults(1)
+                                    .getSingleResultOrNull();
+
+                            if (existingAddress != null) {
+                                existingAddress.setPrimary(false);
+                                hibernateSession.merge(existingAddress);
+                            }
+
+                            Address address = new Address();
+                            address.setPrimary(true);
+                            address.setLine_one(checkoutRequestDTO.getLineOne());
+                            address.setLine_two(checkoutRequestDTO.getLineTwo());
+                            address.setPostal_code(checkoutRequestDTO.getPostalCode());
+                            address.setMobile(checkoutRequestDTO.getMobile());
+                            address.setCity(city);
+                            address.setUser(dbuser);
+
+                            hibernateSession.persist(address);
+
+                            Orders pendingOrder = ordarService.createPendingorder(dbuser, hibernateSession);
+                            PayHereDTO paymetdeatails = createPayHereDTO(hibernateSession, pendingOrder);
+                            jsonObject.add("paymetDeatils", AppUtil.GSON.toJsonTree(paymetdeatails));
+                            transaction.commit();
+                            status = true;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                if (transaction != null) transaction.rollback();
+                e.printStackTrace();
+            } finally {
+                hibernateSession.close();
             }
-       }else {
-          if (checkoutRequestDTO.getFirstName().isBlank()) {
-            message ="First name is empty please login again";
-          }else  if (checkoutRequestDTO.getLastName().isBlank()) {
-              message ="Last name is empty please login again";
-          }else  if (!checkoutRequestDTO.getMobile().matches(Validator.MOBILE_VALIDATION )||checkoutRequestDTO.getMobile()==null) {
-              message ="mobile is empty please login again";
-          }else  if (!checkoutRequestDTO.getPostalCode().matches(Validator.POSTAL_CODE_VALIDATION)||checkoutRequestDTO.getPostalCode()==null) {
-              message ="postal code is empty please login again";
-          } else if (checkoutRequestDTO.getLineOne().isBlank()) {
-              message ="Address line one is empty please login again";
-          }else if (checkoutRequestDTO.getLineTwo().isBlank()) {
-              message ="Address line two is empty please login again";
-          }else {
-              City city=hibernateSession.find(City.class ,checkoutRequestDTO.getCityId());
-              if (city == null) {
-                  message ="City is null.please login again";
-              }else {
-        Address existingAddress=hibernateSession.createQuery
-                        ("FROM Address a WHERE a.user=:user AND a.isPrimary=:primary",Address.class)
-        .setParameter("user",dbuser)
-        .setParameter("primary",true)
-                .setMaxResults(1)
-                .getSingleResultOrNull();
-
-        if (existingAddress == null) {
-                message ="Address is null.please login again";
-        }else {
-            Address address=new Address();
-            address.setPrimary(true);
-            address.setLine_one(checkoutRequestDTO.getLineOne());
-             address.setLine_two(checkoutRequestDTO.getLineTwo());
-             address.setPostal_code(checkoutRequestDTO.getPostalCode());
-            address.setMobile(checkoutRequestDTO.getMobile());
-            address.setCity(city);
-            address.setUser(dbuser);
-
-            hibernateSession.persist(address);
-
-             Orders pendingOrder=ordarService.createPendingorder(dbuser,hibernateSession);
-             PayHereDTO paymetdeatails=createPayHereDTO(hibernateSession,pendingOrder);
-            jsonObject.add("paymetDeatils",AppUtil.GSON.toJsonTree(paymetdeatails));
-            transaction.commit();
-            status=true;
         }
-              }
-          }
 
-
-       }
-
-          } catch (Exception e) {
-              if (transaction != null) {
-                  transaction.rollback();
-              }
-              e.printStackTrace();
-          }finally {
-              hibernateSession.close();
-          }
-      }
-
-
-
-jsonObject.addProperty("message",message);
-jsonObject.addProperty("status",status);
-return AppUtil.GSON.toJson(jsonObject);
+        jsonObject.addProperty("message", message);
+        jsonObject.addProperty("status", status);
+        return AppUtil.GSON.toJson(jsonObject);
     }
+
 
 
     private PayHereDTO createPayHereDTO(Session hibernatesession, Orders o) {

@@ -89,7 +89,7 @@ public void compleateOrder(String orderId) {
                 throw new Exception("Order Not Found");
             }
             List<Order_Item> orderItemList = orders.getOrderItems();
-            if (orderItemList != null || !orderItemList.isEmpty()) {
+            if (orderItemList != null && !orderItemList.isEmpty()) {
 
                 for (Order_Item orderItem : orderItemList) {
                     Stock stock = orderItem.getStock();

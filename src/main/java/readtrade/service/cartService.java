@@ -33,9 +33,10 @@ public class cartService {
                 session.remove(cart);
             }
             transaction.commit();
-            session.close();
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            transaction.rollback();
+            response.addProperty("status", false);
         }finally {
             session.close();
         }
