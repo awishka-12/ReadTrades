@@ -10,7 +10,7 @@ import java.util.Locale;
 public class PayHereUtil {
 
     private static final String MERCHANT_ID = "1235510"; // add PayHere merchant id
-    private static final String MERCHANT_SECRET = "MTY4OTMyNzY4MTgxNjgwODM1OTMxMzg4MzIzMTI5MzUzOTY5NzY=";// add PayHere merchant secret
+    private static final String MERCHANT_SECRET = "MjQ0MTAwMzIzNTQxNjU2MTg5OTgxNTI2NzQ1NjUyMzIxNjY1Nzk4NQ==";// add PayHere merchant secret
     public static final String APP_CURRENCY = "LKR";
     public static final String APP_COUNTRY = "Sri Lanka";
     public static final int PAYMENT_SUCCESS = 2;
@@ -22,15 +22,48 @@ public class PayHereUtil {
     public static String generateHash(String orderId, String amount) {
 //        String formattedAmount = String.format(Locale.US, "%.2f", amount);
 
-        String secretHash = md5(PayHereUtil.MERCHANT_SECRET).toUpperCase();
-        String raw = PayHereUtil.MERCHANT_ID +
-                orderId +
-                amount+
-                PayHereUtil.APP_CURRENCY +
-                secretHash;
+//        String secretHash = md5(PayHereUtil.MERCHANT_SECRET).toUpperCase();
+//        String raw = PayHereUtil.MERCHANT_ID +
+//                orderId +
+//                amount+
+//                PayHereUtil.APP_CURRENCY +
+//                secretHash;
+//
+//        System.out.println("Merchant ID: " + MERCHANT_ID);
+//        System.out.println("Secret: [" + MERCHANT_SECRET + "]");
+//        System.out.println("Secret length: " + MERCHANT_SECRET.length());
+//        return md5(raw).toUpperCase();
+
+//        String raw =
+//                MERCHANT_ID +
+//                        orderId +
+//                        amount +
+//                        APP_CURRENCY +
+//                        MERCHANT_SECRET;
+//
+//        System.out.println("RAW: " + raw);
+//
+//        return md5(raw).toUpperCase();
+
+        String secretHash = md5(MERCHANT_SECRET).toUpperCase();
+
+        String raw =
+                MERCHANT_ID +
+                        orderId +
+                        amount +
+                        APP_CURRENCY +
+                        secretHash;
+
+        String hash = md5(raw).toUpperCase();
+
+        System.out.println("Merchant ID: " + MERCHANT_ID);
+        System.out.println("Secret: [" + MERCHANT_SECRET + "]");
+        System.out.println("Secret length: " + MERCHANT_SECRET.length());
 
 
-        return md5(raw).toUpperCase();
+        System.out.println("Secret MD5: " + secretHash);
+
+        return hash;
     }
 
     public static boolean validateNotify(MultivaluedMap<String, String> form) {

@@ -127,7 +127,7 @@ const checkoutData={
     lineTwo:linetwo.value,
     postalCode:postcode.value,
     mobile:mobile.value,
-    isCurrentAddress:sameAddress.value,
+    isCurrentAddress:sameAddress.checked,
 }
 const checkoutDataJson=JSON.stringify(checkoutData);
 try {
@@ -144,10 +144,12 @@ const data=await response.json();
 if(data.status){
 payhere.startPayment(data.paymetDeatils);
 
+    delete data.paymetDeatils.iframe;
     console.log(data.paymetDeatils);
     console.log(data.paymetDeatils.hash);
     console.log(data.paymetDeatils.order_id);
-    console.log(data.paymetDeatils.amount);
+    console.log(data.paymetDeatils.sandbox);
+    console.log(JSON.stringify(data.paymetDeatils,null,2));
 }else {
     Notiflix.Notify.failure(data.message, {
         position: 'center-top'
