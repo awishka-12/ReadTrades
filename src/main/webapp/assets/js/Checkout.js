@@ -146,10 +146,10 @@ payhere.startPayment(data.paymetDeatils);
 
     delete data.paymetDeatils.iframe;
     console.log(data.paymetDeatils);
-    console.log(data.paymetDeatils.hash);
-    console.log(data.paymetDeatils.order_id);
-    console.log(data.paymetDeatils.sandbox);
-    console.log(JSON.stringify(data.paymetDeatils,null,2));
+    console.log("order:", data.paymetDeatils.order_id);
+    console.log("amount:", data.paymetDeatils.amount);
+    console.log("hash:", data.paymetDeatils.hash);
+
 }else {
     Notiflix.Notify.failure(data.message, {
         position: 'center-top'

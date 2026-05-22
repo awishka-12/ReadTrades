@@ -10,7 +10,7 @@ import java.util.Locale;
 public class PayHereUtil {
 
     private static final String MERCHANT_ID = "1235510"; // add PayHere merchant id
-    private static final String MERCHANT_SECRET = "MjQ0MTAwMzIzNTQxNjU2MTg5OTgxNTI2NzQ1NjUyMzIxNjY1Nzk4NQ==";// add PayHere merchant secret
+    private static final String MERCHANT_SECRET = "Mzg5ODYyMjM3NTIyMTI1MTc0NjMxMDg2NzAxMDk5MTkwNjc5NDkzMQ==";// add PayHere merchant secret
     public static final String APP_CURRENCY = "LKR";
     public static final String APP_COUNTRY = "Sri Lanka";
     public static final int PAYMENT_SUCCESS = 2;
@@ -56,12 +56,10 @@ public class PayHereUtil {
 
         String hash = md5(raw).toUpperCase();
 
-        System.out.println("Merchant ID: " + MERCHANT_ID);
-        System.out.println("Secret: [" + MERCHANT_SECRET + "]");
-        System.out.println("Secret length: " + MERCHANT_SECRET.length());
 
-
-        System.out.println("Secret MD5: " + secretHash);
+        System.out.println("DTO Order : " + orderId);
+        System.out.println("DTO Amount : " + amount);
+        System.out.println("DTO Hash : " + hash);
 
         return hash;
     }
