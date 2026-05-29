@@ -64,6 +64,8 @@ public class UserService {
                         httpSession.setAttribute("user", singleUser);
                         status = true;
                         message = "Login successful";
+
+
                     }
                 }
             }

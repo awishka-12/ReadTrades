@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadTrade | Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/admin-login.css">
+</head>
+<body>
+<div class="admin-login-container">
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="circle circle-4"></div>
+        <div class="circle circle-5"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-wrapper">
+        <div class="login-card">
+            <!-- Left Side - Brand Section -->
+            <div class="login-brand">
+                <div class="brand-content">
+                    <div class="brand-logo">
+                        <i class="fas fa-book-reader"></i>
+                        <span>Read<span class="text-primary">Trade</span></span>
+                    </div>
+                    <div class="brand-badge">Admin Portal</div>
+                    <div class="brand-info">
+                        <h2>Welcome Back, Admin</h2>
+                        <p>Manage your bookstore efficiently with our comprehensive admin dashboard.</p>
+                    </div>
+                    <div class="brand-features">
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Real-time Analytics</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-boxes"></i>
+                            <span>Inventory Management</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <span>User Management</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payment Tracking</span>
+                        </div>
+                    </div>
+                    <div class="brand-footer">
+                        <p>Secure access for authorized personnel only</p>
+                        <div class="security-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>SSL Secured</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="login-form-section">
+                <div class="form-content">
+                    <div class="form-header">
+                        <h2>Admin Sign In</h2>
+                        <p>Enter your credentials to access the dashboard</p>
+                    </div>
+
+                    <!-- Alert Messages -->
+                    <div class="alert-message" id="alertMessage" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="alertText">Invalid email or password</span>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="adminLoginForm" class="admin-login-form">
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" class="form-control" placeholder="admin@readtrade.com" required autocomplete="off">
+                            <div class="error-message" id="emailError">Please enter a valid email</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="error-message" id="passwordError">Please enter your password</div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="login-btn" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Sign In</span>
+                            <div class="btn-loader" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+
+                        <div class="demo-credentials">
+                            <p>Demo Credentials:</p>
+                            <div class="demo-box">
+                                <div class="demo-item">
+                                    <span>Email:</span>
+                                    <strong>admin@readtrade.com</strong>
+                                    <button class="copy-btn" onclick="copyToClipboard('admin@readtrade.com')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="demo-item">
+                                    <span>Password:</span>
+                                    <strong>admin123</strong>
+                                    <button class="copy-btn" onclick="copyToClipboard('admin123')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-footer">
+                        <div class="divider">
+                            <span>Secure Login</span>
+                        </div>
+                        <div class="security-features">
+                            <div class="security-item">
+                                <i class="fas fa-shield-virus"></i>
+                                <span>2FA Available</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-fingerprint"></i>
+                                <span>Biometric Ready</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Session Timeout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>&copy; 2024 ReadTrade. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Two Factor Authentication Modal -->
+<div class="modal-overlay" id="twoFactorModal">
+    <div class="modal-content twofactor-modal">
+        <div class="modal-header">
+            <div class="header-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Two-Factor Authentication</h3>
+            <p>Enter the verification code sent to your email</p>
+            <button class="modal-close" onclick="closeTwoFactorModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="code-inputs">
+                <input type="text" maxlength="1" class="code-input" id="code1" onkeyup="moveToNext(this, 'code2')">
+                <input type="text" maxlength="1" class="code-input" id="code2" onkeyup="moveToNext(this, 'code3')">
+                <input type="text" maxlength="1" class="code-input" id="code3" onkeyup="moveToNext(this, 'code4')">
+                <input type="text" maxlength="1" class="code-input" id="code4" onkeyup="moveToNext(this, 'code5')">
+                <input type="text" maxlength="1" class="code-input" id="code5" onkeyup="moveToNext(this, 'code6')">
+                <input type="text" maxlength="1" class="code-input" id="code6" onkeyup="validateTwoFactor()">
+            </div>
+            <div class="resend-code">
+                <p>Didn't receive code? <a href="#" onclick="resendCode()">Resend Code</a></p>
+                <div class="timer" id="timer">Resend available in <span>30</span>s</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeTwoFactorModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="verifyTwoFactor()">Verify & Login</button>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/admin-login.js"></script>
+</body>
+</html>
