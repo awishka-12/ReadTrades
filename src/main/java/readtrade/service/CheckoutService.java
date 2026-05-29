@@ -232,7 +232,7 @@ public class CheckoutService {
         payHereDTO.setCurrency(PayHereUtil.APP_CURRENCY);
 
         payHereDTO.setHash(hashValue);
-        System.out.println("DTO HASH : " + hashValue);
+
 
         payHereDTO.setFirst_name(user.getFirstname());
 

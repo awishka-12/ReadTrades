@@ -46,6 +46,17 @@ double total=0;
 
 
     }
+
+//Address address=hibernateSession.createQuery(
+//        "FROM Address a WHERE a.user=:user AND a.isPrimary=:primary",Address.class
+//).setParameter("user",user).
+//        setParameter("primary",true)
+//        .setMaxResults(1)
+//        .getSingleResult();
+
+
+
+
       orders.setOrderItems(orderItemList);
       orders.setTotalAmount(total);
 
@@ -58,15 +69,16 @@ public String verifyorderDeatils(String orderId){
     boolean status=false;
     String message="";
 
-int oid=Integer.parseInt(orderId.replaceAll(Validator.NON_DIGIT_PATTERN,""));
-Session hibernateSession= HibernateUtil.getSessionFactory().openSession();
-Orders orders=hibernateSession.find(Orders.class, oid);
-if(orders==null){
-message="Order Not Found";
-}else {
+    int oid=Integer.parseInt(orderId.replaceAll(Validator.NON_DIGIT_PATTERN,""));
+
+    Session hibernateSession= HibernateUtil.getSessionFactory().openSession();
+    Orders orders=hibernateSession.find(Orders.class, oid);
+    if(orders==null){
+     message="Order Not Found";
+      }else {
 
     if(orders.getStatus().getName().equals(String.valueOf(Status.Type.COMPLETED))){
-status=true;
+       status=true;
     }
 }
 hibernateSession.close();
@@ -74,6 +86,7 @@ responseJson.addProperty("status",status);
 responseJson.addProperty("message",message);
 return AppUtil.GSON.toJson(responseJson);
 }
+
 
 public void compleateOrder(String orderId) {
 

@@ -31,10 +31,13 @@ return Response.ok().build();
 
 @Path("/notify")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public Response paymentVerify(MultivaluedMap<String, String> form) {
 String orderId = form.getFirst("order_id");
 String statuscode = form.getFirst("status_code");
+
+System.out.println("s"+statuscode);
+System.out.println("o"+orderId);
 
 if(!PayHereUtil.validateNotify(form)){
     return Response.status(Response.Status.BAD_REQUEST)

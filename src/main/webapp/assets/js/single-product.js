@@ -65,18 +65,24 @@ containe.innerHTML+=`
                     <span class="price">Rs. ${book.price}</span>
                 </div>
 
+              
                 <div class="product-actions">
-                    <label for="stockQuantity">
-                        Quantity
+                 
+                  
+                   <button
+               class="btn btn-secondary buy-now"
 
-                    </label>
-                    <input type="number" id="stockQuantity" name="stock_quantity"
-                           min="0" value="1" placeholder="Enter quantity">
-                </div>
+                   onclick="addToCart(
+               '${book.title.replace(/'/g, "\\'")}',
+               ${book.price},
+                 bookid
+              )">
 
-                <div class="product-actions">
-                    <button class="btn btn-primary add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                    <button class="btn btn-secondary buy-now"><i class="fas fa-bolt"></i> Buy Now</button>
+            <i class="fas fa-bolt"></i>
+             Buy Now
+
+         </button>
+
                     <button class="btn btn-small buy-now"><i class="fas fa-bolt"></i> wishlist</button>
                 </div>
                 <div class="additional-info">
@@ -119,3 +125,6 @@ const discontaine=document.getElementById("book-description")
         alert("Failed to load product");
     }
 }
+
+
+

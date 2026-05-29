@@ -3,235 +3,593 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | ReadTrade</title>
-    <link rel="stylesheet" href="assets/css/vendor/admin.css">
+    <title>ReadTrade | Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/admin.css">
 </head>
 <body>
-<div class="admin-container">
+<div class="admin-wrapper">
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="admin-sidebar">
         <div class="sidebar-header">
-            <div class="logo">
-                <a href="#">Read<span>Trade</span></a>
+            <div class="sidebar-logo">
+                <i class="fas fa-book-reader"></i>
+                <span>Read<span class="text-primary">Trade</span></span>
+            </div>
+            <div class="sidebar-version">Admin v2.0</div>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin">
+            </div>
+            <div class="user-info">
+                <h6>John Anderson</h6>
+                <p>Super Administrator</p>
             </div>
         </div>
+
         <nav class="sidebar-nav">
-            <ul>
-                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-book"></i> Books</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
-                <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-                <li><a href="#"><i class="fas fa-tags"></i> Categories</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="add-books">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Books</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="manage-stock">
+                        <i class="fas fa-boxes"></i>
+                        <span>Manage Stock</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="orders">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="users">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="payments">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Payments</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="categories">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <div class="sidebar-footer">
-            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="admin-main">
         <!-- Top Header -->
-        <header class="top-header">
+        <div class="admin-header">
             <div class="header-left">
-                <button class="menu-toggle" id="menuToggle">
+                <button class="sidebar-toggle" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h2>Dashboard</h2>
+                <div class="page-title">
+                    <h2 id="pageTitle">Dashboard</h2>
+                    <p id="pageSubtitle">Welcome back, John! Here's what's happening today.</p>
+                </div>
             </div>
             <div class="header-right">
-                <div class="search-box">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search...">
-                    <button><i class="fas fa-search"></i></button>
                 </div>
-                <div class="user-profile">
-                    <img src="https://via.placeholder.com/40x40/3498db/ffffff?text=Admin" alt="Admin">
-                    <span>Admin</span>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="header-user">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin">
+                    <div class="user-dropdown">
+                        <span>John Anderson</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
             </div>
-        </header>
+        </div>
 
-        <!-- Stats Cards -->
-        <section class="stats-cards">
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-book"></i>
+        <!-- Dashboard Content -->
+        <div class="admin-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,234</h3>
+                            <p>Total Books</p>
+                            <span class="trend up">+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>856</h3>
+                            <p>Total Orders</p>
+                            <span class="trend up">+8%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>5,432</h3>
+                            <p>Active Users</p>
+                            <span class="trend up">+15%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-danger">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$45,678</h3>
+                            <p>Total Revenue</p>
+                            <span class="trend up">+23%</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-info">
-                    <h3>Total Books</h3>
-                    <p>1,245</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Total Users</h3>
-                    <p>3,578</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Total Orders</h3>
-                    <p>892</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Revenue</h3>
-                    <p>$24,560</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Recent Orders Table -->
-        <section class="recent-orders">
-            <h3>Recent Orders</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>#OR1001</td>
-                    <td>John Doe</td>
-                    <td>2023-06-15</td>
-                    <td>$45.99</td>
-                    <td><span class="status completed">Completed</span></td>
-                    <td><a href="#" class="view-link">View</a></td>
-                </tr>
-                <tr>
-                    <td>#OR1002</td>
-                    <td>Jane Smith</td>
-                    <td>2023-06-14</td>
-                    <td>$32.50</td>
-                    <td><span class="status pending">Pending</span></td>
-                    <td><a href="#" class="view-link">View</a></td>
-                </tr>
-                <tr>
-                    <td>#OR1003</td>
-                    <td>Robert Brown</td>
-                    <td>2023-06-14</td>
-                    <td>$78.20</td>
-                    <td><span class="status processing">Processing</span></td>
-                    <td><a href="#" class="view-link">View</a></td>
-                </tr>
-                <tr>
-                    <td>#OR1004</td>
-                    <td>Emily Davis</td>
-                    <td>2023-06-13</td>
-                    <td>$23.99</td>
-                    <td><span class="status completed">Completed</span></td>
-                    <td><a href="#" class="view-link">View</a></td>
-                </tr>
-                <tr>
-                    <td>#OR1005</td>
-                    <td>Michael Wilson</td>
-                    <td>2023-06-13</td>
-                    <td>$56.30</td>
-                    <td><span class="status cancelled">Cancelled</span></td>
-                    <td><a href="#" class="view-link">View</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h5>Revenue Overview</h5>
+                            <select class="chart-select">
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                                <option>Last 90 Days</option>
+                            </select>
+                        </div>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h5>Top Categories</h5>
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <canvas id="categoriesChart"></canvas>
+                    </div>
+                </div>
 
-        <!-- Recent Books & Users -->
-        <div class="two-column">
-            <section class="recent-books">
-                <h3>Recently Added Books</h3>
-                <ul>
-                    <li>
-                        <img src="https://via.placeholder.com/50x70/2c3e50/ffffff?text=Book" alt="Book">
-                        <div>
-                            <h4>The Great Gatsby</h4>
-                            <p>F. Scott Fitzgerald | $12.99</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/50x70/3498db/ffffff?text=Book" alt="Book">
-                        <div>
-                            <h4>Atomic Habits</h4>
-                            <p>James Clear | $16.99</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/50x70/e74c3c/ffffff?text=Book" alt="Book">
-                        <div>
-                            <h4>Becoming</h4>
-                            <p>Michelle Obama | $18.99</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/50x70/f39c12/ffffff?text=Book" alt="Book">
-                        <div>
-                            <h4>Educated</h4>
-                            <p>Tara Westover | $14.99</p>
-                        </div>
-                    </li>
-                </ul>
-                <a href="#" class="view-all">View All Books</a>
-            </section>
+                <!-- Recent Orders -->
+                <div class="data-table-card">
+                    <div class="card-header">
+                        <h5>Recent Orders</h5>
+                        <a href="#" class="view-all">View All Orders <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable">
+                            <!-- Orders will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-            <section class="recent-users">
-                <h3>Recent Users</h3>
-                <ul>
-                    <li>
-                        <img src="https://via.placeholder.com/40x40/3498db/ffffff?text=JD" alt="User">
-                        <div>
-                            <h4>John Doe</h4>
-                            <p>john@example.com</p>
+            <!-- Add Books Page -->
+            <div id="add-books-page" class="page-content">
+                <div class="form-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-plus-circle"></i> Add New Book</h5>
+                        <p>Fill in the details to add a new book to the inventory</p>
+                    </div>
+                    <form id="addBookForm" class="book-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Book Title <span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Enter book title" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Author <span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Enter author name" required>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/40x40/e74c3c/ffffff?text=JS" alt="User">
-                        <div>
-                            <h4>Jane Smith</h4>
-                            <p>jane@example.com</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ISBN</label>
+                                    <input type="text" class="form-control" placeholder="Enter ISBN number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Category <span class="required">*</span></label>
+                                    <select class="form-control" required>
+                                        <option value="">Select Category</option>
+                                        <option>Fiction</option>
+                                        <option>Non-Fiction</option>
+                                        <option>Science Fiction</option>
+                                        <option>Fantasy</option>
+                                        <option>Mystery</option>
+                                        <option>Biography</option>
+                                        <option>Self-Help</option>
+                                        <option>Academic</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/40x40/f39c12/ffffff?text=RB" alt="User">
-                        <div>
-                            <h4>Robert Brown</h4>
-                            <p>robert@example.com</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Price <span class="required">*</span></label>
+                                    <input type="number" class="form-control" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Quantity <span class="required">*</span></label>
+                                    <input type="number" class="form-control" placeholder="Enter quantity" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Condition</label>
+                                    <select class="form-control">
+                                        <option>New</option>
+                                        <option>Like New</option>
+                                        <option>Very Good</option>
+                                        <option>Good</option>
+                                        <option>Acceptable</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <li>
-                        <img src="https://via.placeholder.com/40x40/27ae60/ffffff?text=ED" alt="User">
-                        <div>
-                            <h4>Emily Davis</h4>
-                            <p>emily@example.com</p>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="4" placeholder="Enter book description..."></textarea>
                         </div>
-                    </li>
-                </ul>
-                <a href="#" class="view-all">View All Users</a>
-            </section>
+                        <div class="form-group">
+                            <label>Book Cover Image</label>
+                            <div class="file-upload">
+                                <input type="file" id="bookImage" accept="image/*">
+                                <label for="bookImage" class="file-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Click to upload or drag and drop</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Manage Stock Page -->
+            <div id="manage-stock-page" class="page-content">
+                <div class="data-table-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-boxes"></i> Inventory Management</h5>
+                        <div class="header-actions">
+                            <input type="text" placeholder="Search books..." class="search-input">
+                            <button class="btn btn-primary btn-sm">Export Stock</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Book ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="stockTable">
+                            <!-- Stock items will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div id="orders-page" class="page-content">
+                <div class="data-table-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-shopping-cart"></i> All Orders</h5>
+                        <div class="filter-group">
+                            <select class="form-control-sm">
+                                <option>All Orders</option>
+                                <option>Pending</option>
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+                            </select>
+                            <input type="date" class="form-control-sm">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                            <!-- Orders will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Page -->
+            <div id="users-page" class="page-content">
+                <div class="data-table-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-users"></i> User Management</h5>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fas fa-plus"></i> Add User
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Joined Date</th>
+                                <th>Orders</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                            <!-- Users will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Page -->
+            <div id="payments-page" class="page-content">
+                <div class="stats-grid mini">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$42,567</h3>
+                            <p>Completed Payments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$3,211</h3>
+                            <p>Pending Payments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$234</h3>
+                            <p>Failed Payments</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-table-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-credit-card"></i> Payment Transactions</h5>
+                        <div class="header-actions">
+                            <input type="text" placeholder="Search transactions..." class="search-input">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="paymentsTable">
+                            <!-- Payments will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Page -->
+            <div id="categories-page" class="page-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-plus"></i> Add New Category</h5>
+                            </div>
+                            <form id="addCategoryForm">
+                                <div class="form-group">
+                                    <label>Category Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter category name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" rows="3" placeholder="Category description"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Parent Category (Optional)</label>
+                                    <select class="form-control">
+                                        <option>None (Top Level)</option>
+                                        <option>Fiction</option>
+                                        <option>Non-Fiction</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Add Category</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="data-table-card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-tags"></i> All Categories</h5>
+                                <div class="header-actions">
+                                    <input type="text" placeholder="Search categories..." class="search-input">
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category Name</th>
+                                        <th>Description</th>
+                                        <th>Books Count</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="categoriesTable">
+                                    <!-- Categories will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>
 
-<script>
-    // Simple mobile menu toggle
-    document.getElementById('menuToggle').addEventListener('click', function() {
-        document.querySelector('.sidebar').classList.toggle('active');
-    });
-</script>
+<!-- Modals -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control">
+                            <option>Customer</option>
+                            <option>Seller</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Add User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="assets/js/admin.js"></script>
 </body>
 </html>

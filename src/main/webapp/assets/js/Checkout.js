@@ -145,10 +145,7 @@ if(data.status){
 payhere.startPayment(data.paymetDeatils);
 
     delete data.paymetDeatils.iframe;
-    console.log(data.paymetDeatils);
-    console.log("order:", data.paymetDeatils.order_id);
-    console.log("amount:", data.paymetDeatils.amount);
-    console.log("hash:", data.paymetDeatils.hash);
+
 
 }else {
     Notiflix.Notify.failure(data.message, {
@@ -174,14 +171,39 @@ payhere.startPayment(data.paymetDeatils);
 // Payment completed. It can be a successful failure.
 payhere.onCompleted = async function onCompleted(orderId) {
     console.log("Payment completed. OrderID:" + orderId);
-    // Note: validate the payment and show success or failure page to the customer
-    await verifyOrder(orderId);
+
+    try {
+        // ✅ Complete the order first
+        const response = await fetch(
+            "api/orders/complete?orderId=" + orderId,
+            { method: "POST" }
+        );
+        const data = await response.json();
+        if(data.status) {
+            Notiflix.Notify.success("Order placed successfully!", {
+                position: 'center-top'
+            });
+            setTimeout(() => {
+                window.location.href = "invoice.html?orderId=" + orderId;
+            }, 2000);
+        } else {
+            Notiflix.Notify.failure("Order completion failed.", {
+                position: 'center-top'
+            });
+        }
+    } catch(e) {
+        Notiflix.Notify.failure(e.message, { position: 'center-top' });
+    }
+
+
 };
 
 // Payment window closed
 payhere.onDismissed = function onDismissed() {
     // Note: Prompt user to pay again or show an error page
     console.log("Payment dismissed");
+
+
 };
 
 // Error occurred
@@ -192,10 +214,30 @@ payhere.onError = function onError(error) {
 
 async function verifyOrder(orderId) {
 try {
-    const response = await fetch(`/api/orders/verify?orderId=${orderId}`)
-    
+
+    const response = await fetch(`api/orders/verify?orderId=${orderId}`);
+if(response.ok){
+    const data = await response.json();
+    if(data.status){
+        Notiflix.Notify.success(
+            "Payment Success ! Order placed.",{
+
+                position: 'center-top'
+        });
+
+        setTimeout(() => {
+            window.location.href = "invoice.html?orderId=" + orderId;
+            }, 2000);
+    }else{
+        Notiflix.Notify.failure("Payment verification failed.", {
+            position: 'center-top'
+        });
+    }
+}
+
+
 }catch (e) {
-    
+    Notiflix.Notify.failure(e.message, { position: 'center-top' });
 }
 }
 
