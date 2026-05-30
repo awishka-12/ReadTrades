@@ -23,9 +23,7 @@
         </div>
 
         <div class="sidebar-user">
-            <div class="user-avatar">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin">
-            </div>
+
             <div class="user-info">
                 <h6>John Anderson</h6>
                 <p>Super Administrator</p>
@@ -42,40 +40,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="add-books">
+                    <a href="add-book.html" class="nav-link" data-page="add-books">
                         <i class="fas fa-plus-circle"></i>
                         <span>Add Books</span>
                         <i class="fas fa-chevron-right arrow"></i>
                     </a>
                 </li>
+
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="manage-stock">
-                        <i class="fas fa-boxes"></i>
-                        <span>Manage Stock</span>
-                        <i class="fas fa-chevron-right arrow"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="orders">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Orders</span>
-                        <i class="fas fa-chevron-right arrow"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="users">
+                    <a href="users-mange.html" class="nav-link" data-page="users">
                         <i class="fas fa-users"></i>
                         <span>Users</span>
                         <i class="fas fa-chevron-right arrow"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="payments">
-                        <i class="fas fa-credit-card"></i>
-                        <span>Payments</span>
-                        <i class="fas fa-chevron-right arrow"></i>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-page="categories">
                         <i class="fas fa-tags"></i>
@@ -92,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
+                    <a href="sign-in.html" class="nav-link">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                         <i class="fas fa-chevron-right arrow"></i>
@@ -116,19 +96,16 @@
                 </div>
             </div>
             <div class="header-right">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search...">
-                </div>
+
                 <div class="notifications">
                     <i class="fas fa-bell"></i>
                     <span class="badge">3</span>
                 </div>
                 <div class="header-user">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin">
+
                     <div class="user-dropdown">
                         <span>John Anderson</span>
-                        <i class="fas fa-chevron-down"></i>
+
                     </div>
                 </div>
             </div>
@@ -147,7 +124,7 @@
                         <div class="stat-info">
                             <h3>1,234</h3>
                             <p>Total Books</p>
-                            <span class="trend up">+12%</span>
+
                         </div>
                     </div>
                     <div class="stat-card">
@@ -157,19 +134,10 @@
                         <div class="stat-info">
                             <h3>856</h3>
                             <p>Total Orders</p>
-                            <span class="trend up">+8%</span>
+
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-warning">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>5,432</h3>
-                            <p>Active Users</p>
-                            <span class="trend up">+15%</span>
-                        </div>
-                    </div>
+
                     <div class="stat-card">
                         <div class="stat-icon bg-danger">
                             <i class="fas fa-dollar-sign"></i>
@@ -182,27 +150,6 @@
                     </div>
                 </div>
 
-                <!-- Charts -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h5>Revenue Overview</h5>
-                            <select class="chart-select">
-                                <option>Last 7 Days</option>
-                                <option>Last 30 Days</option>
-                                <option>Last 90 Days</option>
-                            </select>
-                        </div>
-                        <canvas id="revenueChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h5>Top Categories</h5>
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                        <canvas id="categoriesChart"></canvas>
-                    </div>
-                </div>
 
                 <!-- Recent Orders -->
                 <div class="data-table-card">

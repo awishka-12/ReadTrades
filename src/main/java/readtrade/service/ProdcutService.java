@@ -17,79 +17,74 @@ import java.util.List;
 
 public class ProdcutService {
 
-public String getAllproducts(int page,int size,int category, int author,int year){
-    JsonObject response = new JsonObject();
-    JsonArray jsonArray = new JsonArray();
+    public String getAllproducts(int page, int size, int category, int author, int year) {
+        JsonObject response = new JsonObject();
+        JsonArray jsonArray = new JsonArray();
 
-    Session session = HibernateUtil.getSessionFactory().openSession();
-    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (page < 0) page = 0;
+            if (size <= 0) size = 5;
 
-        if (page < 0) page = 0;
-        if (size <= 0) size = 5;
 
-        String hql = "FROM Book b WHERE 1=1";
+            String hql = "FROM Book b WHERE 1=1";
+            if (category > 0) hql += " AND b.catagory.id=:cat_id";
+            if (author > 0) hql += " AND b.author.id=:author_id";
+            if (year > 0) hql += " AND b.printyear.id=:year_id";
 
-        if (category < 0) {
-            hql += " AND b.Catagory.id=:cat_id";
+            Query<Book> query = session.createQuery(hql, Book.class);
+            if (category > 0) query.setParameter("cat_id", category);
+            if (author > 0) query.setParameter("author_id", author);
+            if (year > 0) query.setParameter("year_id", year);
+
+            int offset = page * size;
+            query.setFirstResult(offset);
+            query.setMaxResults(size);
+            List<Book> books = query.list();
+
+
+            String countHql = "SELECT COUNT(b.id) FROM Book b WHERE 1=1";
+            if (category > 0) countHql += " AND b.catagory.id=:cat_id";
+            if (author > 0) countHql += " AND b.author.id=:author_id";
+            if (year > 0) countHql += " AND b.printyear.id=:year_id";
+
+            Query<Long> countQuery = session.createQuery(countHql, Long.class);
+            if (category > 0) countQuery.setParameter("cat_id", category);
+            if (author > 0) countQuery.setParameter("author_id", author);
+            if (year > 0) countQuery.setParameter("year_id", year);
+
+            Long total = countQuery.uniqueResult();
+
+            for (Book book : books) {
+                JsonObject obj = new JsonObject();
+
+                obj.addProperty("productid", book.getId());
+                obj.addProperty("author", book.getAuthor().getName());
+                obj.addProperty("category", book.getCatagory().getName());
+                obj.addProperty("isb_number", book.getIsb_number());
+                obj.addProperty("price", book.getPrice());
+                obj.addProperty("title", book.getTitle());
+                obj.addProperty("quantity", book.getQuantity());
+                obj.addProperty("year", book.getPrintyear().getYear());
+                obj.addProperty("language", book.getLanguage().getLanguage());
+                jsonArray.add(obj);
+            }
+
+            response.addProperty("status", true);
+            response.add("data", jsonArray);
+            response.addProperty("total", total);
+            response.addProperty("page", page);
+            response.addProperty("size", size);
+
+        } catch (Exception e) {
+            response.addProperty("status", false);
+            response.addProperty("message", "Error loading products: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
-        if (author < 0) {
-            hql += " AND b.Author.id=:author_id";
-        }
-        if (year < 0) {
-            hql += " AND b.Year.id=:year_id";
-        }
-        Query<Book> query = session.createQuery(hql, Book.class);
-
-        if (category > 0) query.setParameter("cat_id", category);
-        if (author > 0) query.setParameter("author_id", author);
-        if (year > 0) query.setParameter("year_id", year);
-
-int offset = page * size;
-query.setFirstResult(offset);
-query.setMaxResults(size);
-
-List<Book> books = query.list();
-
-     Query<Long> countQuery=session.createQuery("SELECT COUNT (b.id)"+hql,long.class);
-
-
-        if (category > 0) query.setParameter("cat_id", category);
-        if (author > 0) query.setParameter("author_id", author);
-        if (year > 0) query.setParameter("year_id", year);
-
-        Long total=countQuery.uniqueResult();
-
-        for (Book book : books) {
-            JsonObject obj= new JsonObject();
-            obj.addProperty("bookId", book.getId());
-            obj.addProperty("author",book.getAuthor().getName());
-            obj.addProperty("category",book.getCatagory().getName());
-            obj.addProperty("isb_number",book.getIsb_number());
-            obj.addProperty("price",book.getPrice());
-            obj.addProperty("title",book.getTitle());
-            obj.addProperty("quantity",book.getQuantity());
-            obj.addProperty("year",book.getPrintyear().getYear());
-            obj.addProperty("language",book.getLanguage().getLanguage());
-
-            jsonArray.add(obj);
-
-
-        }
-
-        response.addProperty("status", true);
-        response.add("data", jsonArray);
-        response.addProperty("total", total);
-        response.addProperty("page", page);
-        response.addProperty("size", size);
-    } catch (Exception e) {
-        response.addProperty("status", false);
-        response.addProperty("message", "Error loading products");
-        e.printStackTrace();
-    }finally {
-        session.close();
+        return response.toString();
     }
-    return response.toString();
-}
 
     public String addNewProduct(ProductDTO productDTO, @Context HttpServletRequest request) {
 
@@ -255,5 +250,68 @@ List<Book> books = query.list();
             session.close();
         }
         return status;
+    }
+
+    public String deleteProduct(int bookId, HttpServletRequest request) {
+        JsonObject jsonObject = new JsonObject();
+        boolean status = false;
+        String message = "";
+        try {
+            HttpSession httpSession = request.getSession(false);
+            if (httpSession == null || httpSession.getAttribute("user") == null) {
+                message = "Please login first!";
+            } else {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
+                try {
+                    Book book = session.get(Book.class, (long) bookId);
+                    if (book == null) {
+                        message = "Book not found!";
+                    } else {
+                        // 1. Remove from cart first
+                        List<Cart> cartList = session.createQuery(
+                                        "FROM Cart c WHERE c.book.id=:bid", Cart.class)
+                                .setParameter("bid", (long) bookId).getResultList();
+                        for (Cart cart : cartList) session.remove(cart);
+
+                        // 2. Get all stocks for this book
+                        List<Stock> stocks = session.createQuery(
+                                        "FROM Stock s WHERE s.book.id=:bid", Stock.class)
+                                .setParameter("bid", (long) bookId).getResultList();
+
+                        // 3. Remove order items linked to these stocks
+                        for (Stock stock : stocks) {
+                            List<Order_Item> orderItems = session.createQuery(
+                                            "FROM Order_Item oi WHERE oi.stock.id=:sid", Order_Item.class)
+                                    .setParameter("sid", stock.getId()).getResultList();
+                            for (Order_Item orderItem : orderItems) {
+                                session.remove(orderItem);
+                            }
+                        }
+
+                        // 4. Remove stocks
+                        for (Stock stock : stocks) session.remove(stock);
+
+
+                        // 6. Finally remove book
+                        session.remove(book);
+                        transaction.commit();
+                        status = true;
+                        message = "Book deleted successfully!";
+                    }
+                } catch (Exception e) {
+                    transaction.rollback();
+                    message = "Delete failed: " + e.getMessage();
+                    e.printStackTrace();
+                } finally {
+                    session.close();
+                }
+            }
+        } catch (Exception e) {
+            message = "Error: " + e.getMessage();
+        }
+        jsonObject.addProperty("status", status);
+        jsonObject.addProperty("message", message);
+        return jsonObject.toString();
     }
 }

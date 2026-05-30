@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadTrade | User Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/user-mange.css">
+</head>
+<body>
+<!-- Header Component -->
+<header-content></header-content>
+
+<div class="users-container">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-users"></i> User Management</h1>
+                <p>Manage and monitor all registered users</p>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="card-icon bg-primary">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-info">
+                    <h3 id="totalUsers">0</h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon bg-success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="card-info">
+                    <h3 id="verifiedUsers">0</h3>
+                    <p>Verified Users</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon bg-warning">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="card-info">
+                    <h3 id="pendingUsers">0</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon bg-danger">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div class="card-info">
+                    <h3 id="blockedUsers">0</h3>
+                    <p>Blocked</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="search-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="searchName" placeholder="Search by name...">
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" id="searchEmail" placeholder="Search by email...">
+                </div>
+                <select id="filterStatus" class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="verified">Verified</option>
+                    <option value="pending">Pending</option>
+                    <option value="blocked">Blocked</option>
+                </select>
+                <select id="sortBy" class="filter-select">
+                    <option value="date_desc">Newest First</option>
+                    <option value="date_asc">Oldest First</option>
+                    <option value="orders_desc">Most Orders</option>
+                    <option value="orders_asc">Least Orders</option>
+                </select>
+                <button class="btn-reset" id="resetFilters">
+                    <i class="fas fa-undo-alt"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="users-table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-list"></i> Registered Users</h3>
+                <div class="table-info">
+                    <span id="userCount">Showing 0 users</span>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="users-table" id="usersTable">
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Customer Name</th>
+                        <th>Email Address</th>
+                        <th>Phone Number</th>
+                        <th>Total Orders</th>
+                        <th>Total Spent</th>
+                        <th>Reg. Date</th>
+                        <th>Account Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                    <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" id="pagination">
+                <button class="page-btn" id="prevPage" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextPage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Details Modal -->
+<div class="modal-overlay" id="userModal">
+    <div class="user-modal">
+        <div class="modal-header">
+            <div class="modal-title">
+                <i class="fas fa-user-circle"></i>
+                <h3>User Details</h3>
+            </div>
+            <button class="modal-close" onclick="closeUserModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="userModalBody">
+            <!-- User details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Footer Component -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/header.js"></script>
+<script src="assets/js/footer.js"></script>
+<script src="assets/js/user-mange.js"></script>
+</body>
+</html>

@@ -82,6 +82,14 @@ jsonResponse.addProperty("message","Product Image has been uploaded successfully
 
 }
 
+    @Path("/delete")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteProduct(@QueryParam("bookId") int bookId,
+                                  @Context HttpServletRequest request) {
+        String responseJson = new ProdcutService().deleteProduct(bookId, request);
+        return Response.ok(responseJson).build();
+    }
 
 
 
